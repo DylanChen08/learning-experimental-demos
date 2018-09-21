@@ -1,68 +1,81 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>JS Bin</title>
- 
- <div id="app"></div>
+
+  <div id="app"></div>
 
 </head>
+
 <body>
 
 </body>
-  <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>  
-  <script src="https://unpkg.com/vuex"></script>
-  <script>
-       Vue.use(Vuex)
-       const store  =  new Vuex.Store({
-         state:{
-           count: 0,
-           firstName:'ease',
-           lastName:'cc'
-         },
-         mutations:{
-           increment(state){
-             state.count ++
-             console.log(state.count)
-           }
-         }
-       })
-       
-       const Counter = {
-         template:`
+<script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+<script src="https://unpkg.com/vuex"></script>
+<script>
+  Vue.use(Vuex)
+  const store = new Vuex.Store({
+    state: {
+      count: 0,
+      firstName: 'ease',
+      lastName: 'cc'
+    },
+    mutations: {
+      increment(state) {
+        state.count++
+        console.log(state.count)
+      },
+      modifyFirstName(state, newName) {
+        state.firstName = newName
+      }
+    },
+    getters: {
+      fullName(state) {
+        return state.firstName + "111222999" + state.lastName
+      }
+    }
+  })
+
+  const Counter = {
+    template: `
                 <div>
                     <div>{{count}}</div>
+                    <span>{{fullName}}</span>
                   <button @click='add'>+</button>
                 </div>
                 
                 `,
-         computed:{
-           count(){
-               //用$store可以访问到全局对象Vuex.store
-                return this.$store.state.count
-           },
+    computed: {
+      count() {
+        //用$store可以访问到全局对象Vuex.store
+        return this.$store.state.count
+      },
 
-            //es6拓展运算符
-                ...Vuex.mapState(['firstName','lastName'])
-         },
-          methods:{
-              add(){
-                  //调用add的方法的时候，在store上挂载名为increment的mutation,然后通过这个mutation修改数据
-                    this.$store.commit('increment')
-           }     
-         } 
-        
-       }  
-       
-       const app = new Vue({
-         el:"#app",
-         store:store,
-         components:{Counter},  
-         template:`
+      //es6拓展运算符,这样的话就可以在模板变量上直接写{{firstName}} {{lastName}}就好了,否则就要写{{$store.state.firstName}}
+      ...Vuex.mapState(['firstName', 'lastName']),
+      ...Vuex.mapGetters(['fullName'])
+    },
+    methods: {
+      add() {
+        //调用add的方法的时候，在store上挂载名为increment的mutation,然后通过这个mutation修改数据
+        this.$store.commit('increment')
+      }
+    }
+
+  }
+
+  const app = new Vue({
+    el: "#app",
+    store: store,
+    components: { Counter },
+    template: `
               <div id="app"><Counter></Counter></div> 
                 `
-       })
-       
-     
-  </script>
+  })
+
+
+</script>
+
 </html>
