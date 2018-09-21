@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <title>JS Bin</title>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    fakeData();
+
+    let model = {
+        data: {
+            id: "2",
+            name: "lolo",
+            number: "1"
+        },
+        fetch(id) {
+            return axios.get(`/book/${id}`).then((response) => {
+                this.data = response.data;
+                return response;   //  只有return了后面才能继续then
+            })
+        },
+        update(id, data) {
+            return axios.put(`/book/${id}`, data).then((response) => {
+                this.data = response.data;
+                return response;
+            })
+        }
+    }
+
+
+    let view = {
+        el: "#app",
+        template:
+            `
+            书名：Javascript高级程序设计 数量
+                <span id="number">2</span>
+            </div>
+            <button id="addoOne">add</button>
+            <button id="minusOne">minus</button>
+            <button id="clear">clear</button>
+        `,
+        render(data) {
+            let renderHtml = this.template.replace('__name__', data.name).replace('__number__', data.number)
+            $(this.el).html(renderHtml)
+        }
+    }
+
+    let controller = {
+        init(options) {
+            let { view, model } = options;
+            this.view = view;
+            this.model = model;
+            this.bindEvents()
+            view.render(model.data)
+            model.fetch(1).then(() => {
+                console.log(data)
+                // let originHtml = $("#app").html();
+                // console.log(originHtml)
+                view.render(model.data)
+            })
+        },
+        addoOne() {
+            let oldNumber = $("#number").text()
+            let lastNumber = oldNumber - 0 + 1
+            model.update({ number: lastNumber }).then(() => {
+                // $("#number").text(lastNumber)
+                // console.log(lastNumber)
+                view.render(model.data)
+            })
+
+        },
+        reset() {
+            model.update({ number: lastNumber }).then(() => {
+                // $("#number").text(0)
+                // console.log(lastNumber)
+                view.render(model.data)
+            })
+        },
+        minusOne() {
+            let oldNumber = $("#number").text()
+            let lastNumber = oldNumber - 0 - 1
+            model.update({ number: lastNumber }).then(() => {
+                // $("#number").text(lastNumber)
+                // console.log(lastNumber)
+                view.render(model.data)
+            })
+        },
+        bindEvents() {
+            $(this.view.el).on("click", "#addOne", this.addoOne)
+
+            $(this.view.el).on("click", "#minusOne", this.minusOne)
+
+            $(this.view.el).on("click", "#clear", this.reset)
+        }
+    }
+
+    controller.init({ view: view, model: model })
+
+
+
+    //mock data
+
+
+
+    function fakeData() {
+
+        axios.interceptors.response.use(function (response) {
+            //   let config = response.config
+            //   let {method,url,data} = config
+            let {
+                config: {
+                    method, url, data
+                }
+            } = response
+            //   console.log(method)
+            if (url === '/book/1' && method === "get") {
+                response.data = {
+                    name: "高级程序设计",
+                    number: 2,
+                    id: 1
+                }
+            } else if (url === '/book/2' && method === "put") {
+                Object.assign(book, data)
+                response.data = book
+            }
+            return response;
+        })
+    }
+
+
+    var a =
+        [
+            {
+                "id": 1,
+                "number": "100.000",
+                "name": "admin.",
+                "level": 1,
+                "children": [
+                    {
+                        "id": 2,
+                        "number": "100.210",
+                        "name": "admin.marketing",
+                        "level": 2
+                    },
+                    {
+                        "id": 3,
+                        "number": "100.260",
+                        "name": "admin.operation",
+                        "level": 2,
+                        "children": [
+                            {
+                                "id": 5,
+                                "number": "260.261",
+                                "name": "operation.content",
+                                "level": 3
+                            },
+                            {
+                                "id": 6,
+                                "number": "260.262",
+                                "name": "operation.promote",
+                                "level": 2
+                            },
+                            {
+                                "id": 7,
+                                "number": "260.263",
+                                "name": "operation.service",
+                                "level": 2
+                            }
+                        ]
+                    },
+                    {
+                        "id": 4,
+                        "number": "100.280",
+                        "name": "admin.development",
+                        "level": 2
+                    }
+                ]
+            }
+        ]
+
+
+    var b = [
+        {
+            id: 1,
+            name: ease,
+            sub: [
+                {
+                    id: 1 - 1,
+                    name: lala
+                }
+            ]
+        }
+    ]
+    
+    var c = {
+        
+    }
+    console.log(typeof a)
+
+
+
+</script>
+
+</html>

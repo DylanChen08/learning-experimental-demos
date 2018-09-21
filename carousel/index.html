@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background: no-repeat url("./images/wallhaven-680441.jpg") ;
+            background-size: cover
+        }
+
+        .images {
+            display: flex;
+            align-items: flex-start;
+            transition: all 0.5s;
+            border: 1px solid green;
+        }
+
+        .images>img {
+            vertical-align: top;
+        }
+
+        .window {
+            width: 300px;
+            margin: 0 auto;
+            overflow: hidden;
+            /* border: 1px solid red; */
+            text-align: center;
+            box-shadow: 0 0 3px #ddd;
+        }
+
+
+
+        .buttons {
+            position: relative;
+            display: flex;
+            /* justify-content: space-around; */
+        }
+
+        .buttons>span {
+            flex: 1;
+            padding: 10px 5px;
+            border: 1px solid #ddd;
+            background: rgb(239, 239, 239);
+            cursor: pointer;
+        }
+
+
+        .buttons>span:nth-child(1):before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 26px;
+            border: 10px solid transparent;
+            border-top-color: rgb(239, 239, 239)
+        }
+
+        .buttons>span:nth-child(2):before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 100px;
+            border: 10px solid transparent;
+            border-top-color: rgb(239, 239, 239)
+        }
+
+        .buttons>span:nth-child(3):before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 175px;
+            border: 10px solid transparent;
+            border-top-color: rgb(239, 239, 239)
+        }
+
+        .buttons>span:nth-child(4):before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 255px;
+            border: 10px solid transparent;
+            border-top-color: rgb(239, 239, 239)
+        }
+
+        .lostBlur {
+            background: #000;
+        }
+
+        .red {
+            color: red;
+            background: white !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="window">
+        <div class="images" id="images">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532777005712&di=b920d67d0864fe0e18d5312b9193e557&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F242dd42a2834349be293321bc3ea15ce37d3be93.jpg"
+                width='300' height="200" alt="">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532776976894&di=3f8bd148222b6b6b722d3fabb916b66d&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F377adab44aed2e731e32c3178c01a18b87d6fa36.jpg"
+                width='300' height="200" alt="">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532776976894&di=fda1fd1fccffb4538d22d9d000c02b9c&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0159b0554bcb99000001bf722ea16f.jpg"
+                width='300' height="200" alt="">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1532776976893&di=8da7864e880cb2db4cace4dfdd1423f3&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fdcc451da81cb39db04544f6adb160924ab183071.jpg"
+                width='300' height="200" alt="">
+        </div>
+        <span id=buttons class="buttons">
+            <span>第1张</span>
+            <span>第2张</span>
+            <span>第3张</span>
+            <span>第4张</span>
+        </span>
+    </div>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+    var allButtons = $(" #buttons>span ")
+    var ID = setTimer();
+    for (let i = 0; i < allButtons.length; i++) {
+        $(allButtons[i]).on('click', function (x) {
+
+            var index = $(x.currentTarget).index();
+            var p = index * -300;
+
+            $("#images").css({
+                transform: 'translate(' + p + 'px)'
+            })
+
+            n = index
+            activeButtons(allButtons.eq(n))
+
+        })
+    }
+
+    var n = 0;
+    var size = allButtons.length;
+    allButtons.eq(n % size).trigger('click').addClass("red").siblings(".red").removeClass("red")
+
+
+    $(".window").on('mouseenter', function () {
+        clearInterval(ID)
+    })
+
+    $(".window").on('mouseleave', function () {
+        ID = setTimer();
+    })
+
+    function activeButtons($buttons) {
+
+        $buttons.addClass("red")
+            .siblings(".red")
+            .removeClass("red")
+
+    }
+
+    function setTimer() {
+        return setInterval(() => {
+            n = n + 1;
+            console.log(n)
+            console.log('plus')
+            allButtons.eq(n % size).trigger('click').addClass("red").siblings(".red").removeClass("red")
+
+        }, 1000)
+    }
+   
+
+</script>
+
+</html>

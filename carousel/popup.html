@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            margin: 100px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .wrapper>button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            outline: 0;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .popover {
+            margin: 0 0 0 10px;
+            padding: 10px;
+            display: none;
+            position: absolute;
+            left: 100%;
+            top: 0;
+            background: whitesmoke;
+            white-space: nowrap
+        }
+
+        .popover::before {
+            margin-left: 5px;
+            position: absolute;
+            right: 100%;
+            top: 0;
+            border: 10px solid transparent;
+            border-right-color: #ddd;
+            content: '';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper" class="wrapper">
+        <button id="clickMe">点我</button>
+        <div id="popover" class="popover">
+            <input type="checkbox"> 我是浮层，点击空白处关闭</div>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+    showLayer();
+    $('#popover').on('click', function (e) {
+        e.stopPropagation()
+    })
+
+    function showLayer() {
+        $('#clickMe').one('click', function () {
+            $('#popover').show()
+            setTimeout(
+                () => {
+                    $(document).one('click', () => {
+                        $('#popover').hide()
+                        showLayer()
+                    })
+                }
+                , 0)
+        })
+    }
+
+</script>
+
+</html>

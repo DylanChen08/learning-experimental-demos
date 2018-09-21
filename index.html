@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>权限管理</title>
+    <link href="https://cdn.bootcss.com/element-ui/2.3.9/theme-chalk/index.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="app">
+    <el-tree :data="data2" show-checkbox node-key="id" @check-change="getCheckedKeys" :default-expanded-keys="[]"
+             :default-checked-keys="[]"
+             :props="defaultProps" ref="tree">
+    </el-tree>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+<script src="https://cdn.bootcss.com/element-ui/2.4.0/index.js"></script>
+<script>
+    var Main = {
+        data() {
+            return {
+                data2: [{
+                    id: '45',
+                    label: '维修平台',
+                    children: [
+                        {
+                            id: '45-1',
+                            label: '工程师首页',
+                            disabled: true
+                        }, {
+                            id: '45-2',
+                            label: '测试首页',
+                        }, {
+                            id: '45-3',
+                            label: '工程师修改界面',
+                        }, {
+                            id: '45-4',
+                            label: '工程师管理删除功能',
+                        }, {
+                            id: '45-5',
+                            label: '工程师管理冻结工程功能',
+                        }, {
+                            id: '45-6',
+                            label: '工程师管理个人详情界面',
+                        }, {
+                            id: '45-7',
+                            label: '工程师管理改变工程师在职状态功能',
+                        }, {
+                            id: '45-8',
+                            label: '工程师管理切换工程师工作状态功能',
+                        }, {
+                            id: '45-9',
+                            label: '工程师管理切换工程师工作状态功能',
+                        }, {
+                            id: '45-10',
+                            label: '工单管理界面',
+                        }, {
+                            id: '45-11',
+                            label: '工单管理详情界面',
+                        }, {
+                            id: '45-12',
+                            label: '工单管理关闭工单功能',
+                        }, {
+                            id: '45-13',
+                            label: '用户反馈管理界面',
+                        }, {
+                            id: '45-14',
+                            label: '用户反馈管理详情界面',
+                        }, {
+                            id: '45-15',
+                            label: '用户反馈管理保存草稿功能',
+                        }, {
+                            id: '45-16',
+                            label: '用户反馈管理确认并发送功能',
+                        }, {
+                            id: '45-17',
+                            label: '素材管理界面',
+                        }, {
+                            id: '45-18',
+                            label: '素材管理上传素材图片功能',
+                        }, {
+                            id: '45-19',
+                            label: '素材管理删除素材图片功能',
+                        }, {
+                            id: '45-20',
+                            label: '自定义菜单管理界面',
+                        }, {
+                            id: '45-21',
+                            label: '自定义菜单管理保存自定义菜单功能',
+                        }, {
+                            id: '45-22',
+                            label: '轮播图管理列表首页界面',
+                        }, {
+                            id: '45-23',
+                            label: '轮播图管理详情界面',
+                        }, {
+                            id: '45-24',
+                            label: '轮播图管理修改图片界面',
+                        }, {
+                            id: '45-25',
+                            label: '轮播图管理修改图片信息功能',
+                        }, {
+                            id: '45-26',
+                            label: '轮播图管理删除图片信息功能',
+                        }, {
+                            id: '45-27',
+                            label: '轮播图管理添加新轮播图功能',
+                        },
+                    ],
+
+                }, {
+                    id: '46',
+                    label: '系统平台',
+                    children: [{
+                        id: '46-28',
+                        label: '权限管理界面'
+                    }, {
+                        id: '46-29',
+                        label: '权限管理添加功能'
+                    }, {
+                        id: '46-30',
+                        label: '角色人员界面'
+                    }, {
+                        id: '46-31',
+                        label: '角色人员信息详情界面'
+                    }, {
+                        id: '46-32',
+                        label: '角色人员删除功能'
+                    }, {
+                        id: '46-33',
+                        label: '角色人员新增人员功能'
+                    }, {
+                        id: '46-40',
+                        label: '后台管理员账号管理修改界面'
+                    }, {
+                        id: '46-41',
+                        label: '后台管理员账号管理保存新密码功能'
+                    }]
+                }, {
+                    id: '47',
+                    label: '财务平台',
+                    children: [{
+                        id: '47-34',
+                        label: '财务管理全工程师流水账界面'
+                    }, {
+                        id: '47-35',
+                        label: '工程师财务管理工程师财务详情界面'
+                    }, {
+                        id: '47-36',
+                        label: '工程师财务管理工程师提现功能'
+                    }, {
+                        id: '47-37',
+                        label: '财务管理界面'
+                    }]
+                }, {
+                    id: '48',
+                    label: '登录平台',
+                    children: [{
+                        id: '48-42',
+                        label: '登录首页界面'
+                    }, {
+                        id: '48-43',
+                        label: '登录处理功能'
+                    }, {
+                        id: '48-44',
+                        label: '退出登录功能'
+                    }]
+                }, {
+                    id: '49',
+                    label: '测试平台',
+                    children: [{
+                        id: '49-x',
+                        label: 'none'
+                    }]
+                }, {
+                    id: '50',
+                    label: '日志管理',
+                    children: [{
+                        id: '50-38',
+                        label: '登录日志详情界面'
+                    }]
+                }, {
+                    id: '51',
+                    label: '日志管理',
+                    children: [{
+                        id: '51-39',
+                        label: '登录日志详情界面'
+                    }]
+                }],
+                defaultProps: {
+                    children: 'children',
+                    label: 'label'
+                }
+            };
+        },
+        methods: {
+            getCheckedKeys() {
+                console.log("change")
+                console.log(this.$refs.tree.getCheckedKeys());
+            },
+        }
+    };
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#app')
+</script>
+{include file="public/common_script_tag"}
+</html>

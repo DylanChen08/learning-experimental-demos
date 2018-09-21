@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./style/style.css"> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .window {
+            width: 300px;
+            height: 200px;
+            margin: 120px auto;
+            overflow: hidden;
+        }
+
+        .images {
+            position: relative;
+        }
+
+        .images>img {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            transition: all.3s;
+        }
+
+        .images>img.current {
+            position: absolute;
+            left: 0;
+            transform: translate(0)
+        }
+
+        .images>img.enter {
+            position: absolute;
+            left: 0;
+            transform: translate(100%)
+        }
+
+        .images>img.leave {
+            position: absolute;
+            left: 0;
+            transform: translate(-100%)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="window">
+        <div class="images">
+            <img src="./images/1.png" alt="图片" width="300" height="200">
+            <img src="./images/2.png" alt="图片" width="300" height="200">
+            <img src="./images/3.png" alt="图片" width="300" height="200">
+            <!-- <img src="./images/4.png" alt="图片" width="300" height="200">
+            <img src="./images/5.png" alt="图片" width="300" height="200"> -->
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
