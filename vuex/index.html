@@ -47,7 +47,7 @@
          },
           methods:{
               add(){
-                  //调用add的方法的时候，在store上挂载名为increment的mutation
+                  //调用add的方法的时候，在store上挂载名为increment的mutation,然后通过这个mutation修改数据
                     this.$store.commit('increment')
            }     
          } 
